@@ -50,12 +50,15 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
       <a class="navbar-brand" href="#">TKF</a>
-      
+      {this.state.fields.map(field => {
+        return(
+          <a class="nav-link text-white" href={"#"+field.name}>{field.name}</a>
+        );
+      })}
       </nav>
-      <div class="jumbotron jumbotron-fluid" id="welcome">
+      <div class="jumbotron text-white bg-secondary" id="welcome">
         <div class="container">
           <h1 class="display-4">Welcome to TKF</h1>
           <p class="lead">We are a community of like-minded people here to seek knowledge and share knowledge with others. Our primary goal is to share peer-reviewed information on a variety of topics in a casual, highly-interactive environment on Twitch. We seek to serve the people by:</p>
@@ -67,7 +70,7 @@ class App extends Component {
           </ol>
         </div>
       </div>
-      
+
       {/* how to get cards to work properly */}
       {/* <div className="card-group">
         <div className="row">{this.state.streamers.map(streamer => {
@@ -86,22 +89,34 @@ class App extends Component {
       {this.state.fields.map(field => {
         return (
           <div class="row">
-            <div class="col-lg-auto">
-                  <h5>{field.name}</h5>
-                    {field.streamers.map(fields => {
+            <div class="container">
+                  <h5 className="display-4 text-white" id={field.name} align="center">{field.name}</h5>
+                  <hr></hr>
+                  <hr></hr>
+                  <div className="card-group">
+                  <div className="container">
+                    <div className="row">{field.streamers.map(fields => {
                       return(
-                        <div className="container-fluid">
-                          <div>{fields.streamername}</div>
-                          <div>{fields.streamerbio}</div>
+                        <div className="card text-white bg-secondary col-lg-4">
+                          {/* make streamername a link to the twitch url from fields */}
+                          <div className="card-body">
+                          <div className="card-title">{fields.streamername}</div>
+                          <div className="card-text">{fields.streamerbio}</div>
+                          <hr></hr>
+                          {/* map over streamer links from fields
+                          <hr></hr> */}
+                        </div>
                         </div>
                       );
                     })}
+                    </div>
+                    </div>
             </div>
-          </div>
+            </div>
+            </div>
           );
           })}
       </div>
-    </div>   
     );
   }
 }
