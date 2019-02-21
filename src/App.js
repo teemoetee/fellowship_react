@@ -17,7 +17,8 @@ class App extends Component {
       streamerurl: null,
       streamerimg: null,
       streamerlinks: [],
-      field: null
+      field: null,
+      isTruncated: true
     }
   }
   componentDidMount() {
@@ -50,14 +51,15 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-twitch sticky-top">
       <a class="navbar-brand" href="#">TKF</a>
       {this.state.fields.map(field => {
         return(
-          <a class="nav-link text-white" href={"#"+field.name}>{field.name}</a>
+          <a class="nav-link text-purple" href={"#"+field.name}>{field.name}</a>
         );
       })}
       </nav>
+      <div className="flex-container">
       <div class="jumbotron text-white bg-secondary" id="welcome">
         <div class="container">
           <h1 class="display-4">Welcome to TKF</h1>
@@ -70,49 +72,42 @@ class App extends Component {
           </ol>
         </div>
       </div>
+      </div>
 
-      {/* how to get cards to work properly */}
-      {/* <div className="card-group">
-        <div className="row">{this.state.streamers.map(streamer => {
-          return(
-            <div className="card col-4">
-              <div className="card-body">
-                <h5 className="card-title">{streamer.streamername}</h5>
-              </div>
-            </div>
-          );
-          })}
-        </div>
-      </div> */}
-
-      {/* putting streamer and bio in appropriate field and displaying crudely */}
+      {/* putting streamer and bio in appropriate field and displaying crudely maybe change to grid display instead of card */}
       {this.state.fields.map(field => {
         return (
           <div class="row">
-            <div class="container">
-                  <h5 className="display-4 text-white" id={field.name} align="center">{field.name}</h5>
+            <div class="container-fluid">
+                  <h5 className="display-4 text-purple" id={field.name} align="center">{field.name}</h5>
                   <hr></hr>
                   <hr></hr>
-                  <div className="card-group">
-                  <div className="container">
-                    <div className="row">{field.streamers.map(fields => {
+                  
+                    <div className="d-flex row">{field.streamers.map(fields => {
                       return(
-                        <div className="card text-white bg-secondary col-lg-4">
+                        
+                        <div className="m-3 shadow text-white bg-secondary col-xl-3 col-lg-4 col-md-6 col-sm-12">
                           {/* make streamername a link to the twitch url from fields */}
                           <div className="card-body">
-                          <div className="card-title">{fields.streamername}</div>
+                          <a href={fields.streamerurl} target="_blank"><div className="card-title text-purple"><b>{fields.streamername}</b></div></a>
                           <div className="card-text">{fields.streamerbio}</div>
                           <hr></hr>
-                          {/* map over streamer links from fields
-                          <hr></hr> */}
+                          More Content
+                          <hr></hr>
+                          <div>{fields.streamerlinks.map(links => {
+                            return(
+                             
+                              <div className="text-truncate card-text">
+                              <a className="text-purple" href={links} target="_blank">{links}</a>
+                            </div>
+                            );
+                          })}</div>
                         </div>
                         </div>
-                      );
+                        );
                     })}
                     </div>
                     </div>
-            </div>
-            </div>
             </div>
           );
           })}

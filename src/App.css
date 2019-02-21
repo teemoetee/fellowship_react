@@ -29,6 +29,15 @@ html body {
   font-weight: 300;
   line-height: 1.2;
 }
+.bg-twitch {
+  background-color: #23272a;
+}
+.flex-container {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
 
 
 @keyframes App-logo-spin {
@@ -39,4 +48,3 @@ html body {
     transform: rotate(360deg);
   }
 }
-

@@ -7,7 +7,7 @@
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
-  --purple: #6f42c1;
+  --purple: #6441A5;
   --pink: #e83e8c;
   --red: #dc3545;
   --orange: #fd7e14;
@@ -25,7 +25,7 @@
   --warning: #ffc107;
   --danger: #dc3545;
   --light: #f8f9fa;
-  --dark: #343a40;
+  --dark: #23272a;
   --breakpoint-xs: 0;
   --breakpoint-sm: 576px;
   --breakpoint-md: 768px;
@@ -6256,11 +6256,14 @@ button.bg-dark:focus {
 .d-flex {
   display: -ms-flexbox !important;
   display: flex !important;
+  justify-content: center;
+  
 }
 
 .d-inline-flex {
   display: -ms-inline-flexbox !important;
   display: inline-flex !important;
+  overflow: hidden;
 }
 
 @media (min-width: 576px) {
@@ -8802,6 +8805,10 @@ button.bg-dark:focus {
 
 .text-white {
   color: #fff !important;
+}
+
+.text-purple {
+  color: #6441A5;
 }
 
 .text-primary {
