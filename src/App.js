@@ -6,20 +6,16 @@ import './bootstrap-unedited/css/bootstrap.min.css';
 import './bootstrap-unedited/css/bootstrap-grid.css';
 
 
+
 class App extends Component {
   constructor() {
     super();
     this.state = {
       fields: [],
-      streamers: [],
-      streamer: null,
-      streamerbio: null,
-      streamerurl: null,
-      streamerimg: null,
-      streamerlinks: [],
-      field: null,
-      isTruncated: true
+      streamers: []
     }
+    this.toggleTruncate = this.toggleTruncate.bind(this);
+    this.formatStreamerBio = this.formatStreamerBio.bind(this);
   }
   componentDidMount() {
     console.log("bleh");
@@ -35,8 +31,9 @@ class App extends Component {
         else{
           return {...streamer, streamerlinks: []};
         }
+      }).map(streamer => {
+        return {...streamer, truncated: true};
       });
-      console.table(data);
       var fields = data.map(streamer => streamer.field);
       fields = _.uniq(fields);
       fields = fields.map(field => {
@@ -48,10 +45,31 @@ class App extends Component {
     })
   }
 
+  toggleTruncate(id, fieldName){
+    console.log(id);
+    let newFields = [...this.state.fields];
+    let newField = newFields.find(field => field.name === fieldName);
+    let newFieldIndex = newFields.findIndex(field => field.name === fieldName);
+    let newStreamer = newField.streamers.find(streamer => streamer.id === id);
+    let newStreamerIndex = newField.streamers.findIndex(streamer => streamer.id === id);
+    newStreamer.truncated = !newStreamer.truncated;
+    newField.streamers[newStreamerIndex] = newStreamer;
+    newFields[newFieldIndex] = newField;
+    this.setState({fields: newFields});
+  }
+  formatStreamerBio(bio, truncated) {
+    // toggle some bio shit with some split nonsense
+    let truncateLength = 150;
+    if(truncated && bio.length >= truncateLength) {
+      return bio.slice(0,truncateLength) + "...";
+    }
+    return bio;
+  }
+
   render() {
     return (
       <div className="App">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-twitch sticky-top">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-twitch sticky-top testfont">
       <a class="navbar-brand" href="#">TKF</a>
       {this.state.fields.map(field => {
         return(
@@ -63,13 +81,7 @@ class App extends Component {
       <div class="jumbotron text-white bg-secondary" id="welcome">
         <div class="container">
           <h1 class="display-4">Welcome to TKF</h1>
-          <p class="lead">We are a community of like-minded people here to seek knowledge and share knowledge with others. Our primary goal is to share peer-reviewed information on a variety of topics in a casual, highly-interactive environment on Twitch. We seek to serve the people by:</p>
-          <ol>
-            <li>Educating</li>
-            <li>Finding and supporting other educational content creators</li>
-            <li>Creating a central hub for all things educational through live-streaming</li>
-            <li>Inspiring others to discover the value in learning</li>
-          </ol>
+          <p class="lead">We are a <b className="text-purple">community of like-minded people</b> here to seek knowledge and share knowledge with others. Our primary goal is to share peer-reviewed information on a variety of topics in a casual, highly-interactive environment on Twitch. We seek to <b className="text-purple">serve the people by educating</b>, finding and supporting other educational content creators, creating a central hub for all things educational through live-streaming, and inspiring others to discover the value in learning.</p>
         </div>
       </div>
       </div>
@@ -83,22 +95,21 @@ class App extends Component {
                   <hr></hr>
                   <hr></hr>
                   
-                    <div className="d-flex row">{field.streamers.map(fields => {
+                    <div className="d-flex row">{field.streamers.map(streamer => {
                       return(
                         
-                        <div className="m-3 shadow text-white bg-secondary col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                          {/* make streamername a link to the twitch url from fields */}
+                        <div className="m-3 shadow text-white bg-secondary col-xl-3 col-lg-4 col-md-6 col-sm-12 rounded">
+                          {/* make streamername a link to the twitch url from streamer */}
                           <div className="card-body">
-                          <a href={fields.streamerurl} target="_blank"><div className="card-title text-purple"><b>{fields.streamername}</b></div></a>
-                          <div className="card-text">{fields.streamerbio}</div>
+                          <a href={streamer.streamerurl} target="_blank" rel="noopener noreferrer"><div className="card-title text-purple"><b>{streamer.streamername}</b></div></a>
+                          <div className="card-text">{this.formatStreamerBio(streamer.streamerbio, streamer.truncated)}</div>
+                          <button className="btn btn-outline-dark btn-sm" onClick={() => this.toggleTruncate(streamer.id, field.name)}>Read More</button>
                           <hr></hr>
-                          More Content
-                          <hr></hr>
-                          <div>{fields.streamerlinks.map(links => {
+                          <div>{streamer.streamerlinks.map(links => {
                             return(
                              
                               <div className="text-truncate card-text">
-                              <a className="text-purple" href={links} target="_blank">{links}</a>
+                              <a className="text-purple" href={links} target="_blank" rel="noopener noreferrer">{links}</a>
                             </div>
                             );
                           })}</div>
