@@ -18,7 +18,6 @@ class App extends Component {
     this.formatStreamerBio = this.formatStreamerBio.bind(this);
   }
   componentDidMount() {
-    console.log("bleh");
     fetch('http://localhost:3003/streamers')
     .then((data) => {
       return data.json();
@@ -42,6 +41,13 @@ class App extends Component {
       this.setState({fields});
       console.table(fields);
       this.setState({streamers: data});
+    })
+    //fetch data from twitch helix api
+    fetch('https://api.twitch.tv/kraken/users/rockitsage?client_id=ts2wybg407z8q35h4rezckkn9ttrux')
+    .then((twitch) => {
+      console.log(twitch.json());
+      return twitch.json();
+      
     })
   }
 
