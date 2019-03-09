@@ -4,6 +4,7 @@ import './App.css';
 import './bootstrap-unedited/css/bootstrap.css';
 import './bootstrap-unedited/css/bootstrap.min.css';
 import './bootstrap-unedited/css/bootstrap-grid.css';
+import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 
 
@@ -12,10 +13,12 @@ class App extends Component {
     super();
     this.state = {
       fields: [],
-      streamers: []
+      streamers: [],
+      dropdownopen: false
     }
     this.toggleTruncate = this.toggleTruncate.bind(this);
     this.formatStreamerBio = this.formatStreamerBio.bind(this);
+    this.toggle = this.toggle.bind(this);
   }
   componentDidMount() {
     fetch('http://localhost:3003/streamers')
@@ -71,16 +74,30 @@ class App extends Component {
     return bio;
   }
 
+  toggle() {
+    this.setState({
+      dropdownopen: !this.state.dropdownopen
+    });
+  }
+
   render() {
     return (
       <div className="App">
       <nav class="navbar navbar-expand-lg navbar-dark bg-twitch sticky-top testfont">
       <a class="navbar-brand" href="#">TKF</a>
+      <ButtonDropdown isOpen={this.state.dropdownopen} toggle={this.toggle}>
+      <DropdownToggle caret>
+          Select
+        </DropdownToggle>
+      <DropdownMenu>
       {this.state.fields.map(field => {
         return(
-          <a class="nav-link text-purple" href={"#"+field.name}>{field.name}</a>
+          <DropdownItem href={"#"+field.name}>{field.name}</DropdownItem>
         );
       })}
+      </DropdownMenu>
+      </ButtonDropdown>
+
       </nav>
       <div className="flex-container">
       <div class="jumbotron text-white bg-secondary" id="welcome">
