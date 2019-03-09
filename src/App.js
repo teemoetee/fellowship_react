@@ -43,12 +43,11 @@ class App extends Component {
       this.setState({streamers: data});
     })
     //fetch data from twitch helix api
-    fetch('https://api.twitch.tv/kraken/users/rockitsage?client_id=ts2wybg407z8q35h4rezckkn9ttrux')
-    .then((twitch) => {
-      console.log(twitch.json());
-      return twitch.json();
+    // fetch('https://api.twitch.tv/kraken/users/rockitsage?client_id=ts2wybg407z8q35h4rezckkn9ttrux')
+    // .then((twitch) => {
+    //   console.log(twitch.json());
       
-    })
+    // })
   }
 
   toggleTruncate(id, fieldName){
@@ -103,7 +102,6 @@ class App extends Component {
                   
                     <div className="d-flex row">{field.streamers.map(streamer => {
                       return(
-                        
                         <div className="m-3 shadow text-white bg-secondary col-xl-3 col-lg-4 col-md-6 col-sm-12 rounded">
                           {/* make streamername a link to the twitch url from streamer */}
                           <div className="card-body">
