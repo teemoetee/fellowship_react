@@ -14,6 +14,8 @@ class App extends Component {
     this.state = {
       fields: [],
       streamers: [],
+      profile: [],
+      logo: [],
       dropdownopen: false
     }
     this.toggleTruncate = this.toggleTruncate.bind(this);
@@ -33,7 +35,8 @@ class App extends Component {
         else{
           return {...streamer, streamerlinks: []};
         }
-      }).map(streamer => {
+      })
+      .map(streamer => {
         return {...streamer, truncated: true};
       });
       var fields = data.map(streamer => streamer.field);
@@ -41,15 +44,31 @@ class App extends Component {
       fields = fields.map(field => {
         return {name: field, streamers: data.filter(streamer => streamer.field === field)}
       })
+      var profile = data.map(streamer => streamer.streamername);
+      profile = _.uniq(profile);
+      profile = profile.map(profiles => {
+        return {name: profiles};
+      })
       this.setState({fields});
       console.table(fields);
       this.setState({streamers: data});
+      this.setState({profile});
+      console.table(profile);
+      this.fetchProfile();
     })
-    //fetch data from twitch helix api
+    
+  }
+  fetchProfile(){
+    //fetch data from twitch kraken api
     // fetch('https://api.twitch.tv/kraken/users/rockitsage?client_id=ts2wybg407z8q35h4rezckkn9ttrux')
-    // .then((twitch) => {
-    //   console.log(twitch.json());
-      
+    fetch(`https://api.twitch.tv/kraken/users/rockitsage?client_id=ts2wybg407z8q35h4rezckkn9ttrux`)
+    .then((twitchRes) => {
+      console.log(twitchRes.json());
+      //return twitchRes.json();
+    })
+    // .then((twitchRes) => {
+    //   this.setState({ profile: twitchRes });
+    //   // console.log(this.state.profile);
     // })
   }
 
@@ -83,8 +102,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-twitch sticky-top testfont">
-      <a class="navbar-brand" href="#">TKF</a>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-twitch sticky-top testfont">
+      <a className="navbar-brand" href="#">TKF</a>
       <ButtonDropdown isOpen={this.state.dropdownopen} toggle={this.toggle}>
       <DropdownToggle caret>
           Select
@@ -92,7 +111,7 @@ class App extends Component {
       <DropdownMenu>
       {this.state.fields.map(field => {
         return(
-          <DropdownItem href={"#"+field.name}>{field.name}</DropdownItem>
+          <DropdownItem key={field.name} href={"#"+field.name}>{field.name}</DropdownItem>
         );
       })}
       </DropdownMenu>
@@ -100,10 +119,10 @@ class App extends Component {
 
       </nav>
       <div className="flex-container">
-      <div class="jumbotron text-white bg-secondary" id="welcome">
-        <div class="container">
-          <h1 class="display-4">Welcome to TKF</h1>
-          <p class="lead">We are a <b className="text-purple">community of like-minded people</b> here to seek knowledge and share knowledge with others. Our primary goal is to share peer-reviewed information on a variety of topics in a casual, highly-interactive environment on Twitch. We seek to <b className="text-purple">serve the people by educating</b>, finding and supporting other educational content creators, creating a central hub for all things educational through live-streaming, and inspiring others to discover the value in learning.</p>
+      <div className="jumbotron text-white bg-secondary" id="welcome">
+        <div className="container">
+          <h1 className="display-4">Welcome to TKF</h1>
+          <p className="lead">We are a <b className="text-purple">community of like-minded people</b> here to seek knowledge and share knowledge with others. Our primary goal is to share peer-reviewed information on a variety of topics in a casual, highly-interactive environment on Twitch. We seek to <b className="text-purple">serve the people by educating</b>, finding and supporting other educational content creators, creating a central hub for all things educational through live-streaming, and inspiring others to discover the value in learning.</p>
         </div>
       </div>
       </div>
@@ -111,8 +130,8 @@ class App extends Component {
       {/* putting streamer and bio in appropriate field and displaying crudely maybe change to grid display instead of card */}
       {this.state.fields.map(field => {
         return (
-          <div class="row">
-            <div class="container-fluid">
+          <div className="row">
+            <div className="container-fluid">
                   <h5 className="display-4 text-purple" id={field.name} align="center">{field.name}</h5>
                   <hr></hr>
                   <hr></hr>
@@ -143,6 +162,7 @@ class App extends Component {
             </div>
           );
           })}
+          <iframe src="https://discordapp.com/widget?id=438876315764916224&theme=dark" width="400" height="400" allowtransparency="true" frameBorder="0"></iframe>
       </div>
     );
   }
