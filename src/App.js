@@ -54,23 +54,10 @@ class App extends Component {
       this.setState({streamers: data});
       this.setState({profile});
       console.table(profile);
-      this.fetchProfile();
     })
     
   }
-  fetchProfile(){
-    //fetch data from twitch kraken api
-    // fetch('https://api.twitch.tv/kraken/users/rockitsage?client_id=ts2wybg407z8q35h4rezckkn9ttrux')
-    fetch(`https://api.twitch.tv/kraken/users/rockitsage?client_id=ts2wybg407z8q35h4rezckkn9ttrux`)
-    .then((twitchRes) => {
-      console.log(twitchRes.json());
-      //return twitchRes.json();
-    })
-    // .then((twitchRes) => {
-    //   this.setState({ profile: twitchRes });
-    //   // console.log(this.state.profile);
-    // })
-  }
+
 
   toggleTruncate(id, fieldName){
     console.log(id);
