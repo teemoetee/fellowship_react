@@ -4,7 +4,7 @@ import './App.css';
 import './bootstrap-unedited/css/bootstrap.css';
 import './bootstrap-unedited/css/bootstrap.min.css';
 import './bootstrap-unedited/css/bootstrap-grid.css';
-import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavItem, NavLink } from 'reactstrap';
 
 
 
@@ -16,7 +16,9 @@ class App extends Component {
       streamers: [],
       profile: [],
       logo: [],
-      dropdownopen: false
+      dropdownopen: false,
+      readbuttontext: 'Read More',
+      readstate: false
     }
     this.toggleTruncate = this.toggleTruncate.bind(this);
     this.formatStreamerBio = this.formatStreamerBio.bind(this);
@@ -57,8 +59,6 @@ class App extends Component {
     })
     
   }
-
-
   toggleTruncate(id, fieldName){
     console.log(id);
     let newFields = [...this.state.fields];
@@ -70,6 +70,16 @@ class App extends Component {
     newField.streamers[newStreamerIndex] = newStreamer;
     newFields[newFieldIndex] = newField;
     this.setState({fields: newFields});
+    this.setState(prevState => ({
+      readstate: !prevState.readstate
+    }))
+    if(this.state.readstate === false){
+      this.setState({readbuttontext: 'Read Less'});
+    }
+    if(this.state.readstate === true){
+      this.setState({readbuttontext: 'Read More'})
+    }
+
   }
   formatStreamerBio(bio, truncated) {
     // toggle some bio shit with some split nonsense
@@ -96,11 +106,14 @@ class App extends Component {
           Select
         </DropdownToggle>
       <DropdownMenu>
+      
       {this.state.fields.map(field => {
         return(
           <DropdownItem key={field.name} href={"#"+field.name}>{field.name}</DropdownItem>
         );
       })}
+      <hr></hr>
+      <NavItem><NavLink href="#discord">Social Media</NavLink></NavItem>
       </DropdownMenu>
       </ButtonDropdown>
 
@@ -130,7 +143,7 @@ class App extends Component {
                           <div className="card-body">
                           <a href={streamer.streamerurl} target="_blank" rel="noopener noreferrer"><div className="card-title text-purple"><b>{streamer.streamername}</b></div></a>
                           <div className="card-text">{this.formatStreamerBio(streamer.streamerbio, streamer.truncated)}</div>
-                          <button className="btn btn-outline-dark btn-sm" onClick={() => this.toggleTruncate(streamer.id, field.name)}>Read More</button>
+                          <button className="btn btn-outline-dark btn-sm" onClick={() => this.toggleTruncate(streamer.id, field.name)}>{this.state.readbuttontext}</button>
                           <hr></hr>
                           <div>{streamer.streamerlinks.map(links => {
                             return(
@@ -149,7 +162,9 @@ class App extends Component {
             </div>
           );
           })}
+          <div id="discord">
           <iframe src="https://discordapp.com/widget?id=438876315764916224&theme=dark" width="400" height="400" allowtransparency="true" frameBorder="0"></iframe>
+          </div>
       </div>
     );
   }

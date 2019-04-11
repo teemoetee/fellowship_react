@@ -53,3 +53,6 @@ html body {
     transform: rotate(360deg);
   }
 }
+.text-truncate {
+  -webkit-text-fill-color: #6441A5;
+}
