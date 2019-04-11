@@ -5,7 +5,8 @@ import './bootstrap-unedited/css/bootstrap.css';
 import './bootstrap-unedited/css/bootstrap.min.css';
 import './bootstrap-unedited/css/bootstrap-grid.css';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavItem, NavLink } from 'reactstrap';
-
+import { TwitterTimelineEmbed, TwitterShareButton, TwitterFollowButton, TwitterHashtagButton, TwitterMentionButton, TwitterTweetEmbed, TwitterMomentShare, TwitterDMButton, TwitterVideoEmbed, TwitterOnAirButton } from 'react-twitter-embed';
+import InstagramEmbed from 'react-instagram-embed';
 
 
 class App extends Component {
@@ -17,7 +18,7 @@ class App extends Component {
       profile: [],
       logo: [],
       dropdownopen: false,
-      readbuttontext: 'Read More',
+      readbtntext: 'Read More',
       readstate: false
     }
     this.toggleTruncate = this.toggleTruncate.bind(this);
@@ -72,12 +73,12 @@ class App extends Component {
     this.setState({fields: newFields});
     this.setState(prevState => ({
       readstate: !prevState.readstate
-    }))
+    }));
     if(this.state.readstate === false){
-      this.setState({readbuttontext: 'Read Less'});
+      this.setState({readbtntext: 'Read Less'});
     }
     if(this.state.readstate === true){
-      this.setState({readbuttontext: 'Read More'})
+      this.setState({readbtntext: 'Read More'})
     }
 
   }
@@ -113,7 +114,7 @@ class App extends Component {
         );
       })}
       <hr></hr>
-      <NavItem><NavLink href="#discord">Social Media</NavLink></NavItem>
+      <NavItem><NavLink href="#socialmedia">Social Media</NavLink></NavItem>
       </DropdownMenu>
       </ButtonDropdown>
 
@@ -143,8 +144,9 @@ class App extends Component {
                           <div className="card-body">
                           <a href={streamer.streamerurl} target="_blank" rel="noopener noreferrer"><div className="card-title text-purple"><b>{streamer.streamername}</b></div></a>
                           <div className="card-text">{this.formatStreamerBio(streamer.streamerbio, streamer.truncated)}</div>
-                          <button className="btn btn-outline-dark btn-sm" onClick={() => this.toggleTruncate(streamer.id, field.name)}>{this.state.readbuttontext}</button>
+                          <button className="btn btn-outline-dark btn-sm" onClick={() => this.toggleTruncate(streamer.id, field.name)}>{this.state.readbtntext}</button>
                           <hr></hr>
+                          
                           <div>{streamer.streamerlinks.map(links => {
                             return(
                              
@@ -152,6 +154,7 @@ class App extends Component {
                               <a className="text-purple" href={links} target="_blank" rel="noopener noreferrer">{links}</a>
                             </div>
                             );
+                            
                           })}</div>
                         </div>
                         </div>
@@ -162,12 +165,33 @@ class App extends Component {
             </div>
           );
           })}
-          <div id="discord">
-          <iframe src="https://discordapp.com/widget?id=438876315764916224&theme=dark" width="400" height="400" allowtransparency="true" frameBorder="0"></iframe>
+          <div className= 'd-flex row' id="socialmedia">
+          <TwitterTimelineEmbed
+            sourceType="profile"
+            screenName="TheKnowledgeFe1"
+            options={{height: 530, width: 400}} 
+          />
+          {/* change url to whatever tkf has as their first post */}
+          <InstagramEmbed
+            url='https://www.instagram.com/p/BwGf5F9DrkB/?utm_source=ig_embed&amp;utm_medium=loading'
+            maxWidth={400}
+            hideCaption={true}
+            containerTagName='div'
+            protocol=''
+            injectScript
+            onLoading={() => {}}
+            onSuccess={() => {}}
+            onAfterRender={() => {}}
+            onFailure={() => {}}
+          />
+          <iframe src="https://discordapp.com/widget?id=438876315764916224&theme=light" width="400" height="530" allowtransparency="true" frameBorder="0"></iframe>
           </div>
       </div>
+      
     );
+    
   }
+  
 }
 
 export default App;
