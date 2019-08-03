@@ -74,6 +74,9 @@ html body {
   justify-content: center;
   align-items: center;
 }
+.text-gold {
+  color: var(--warning);
+}
 
 
 @keyframes App-logo-spin {

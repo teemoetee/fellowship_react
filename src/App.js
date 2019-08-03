@@ -101,6 +101,7 @@ class App extends Component {
     return (
       <div className="App">
       <nav className="navbar navbar-expand-lg navbar-dark bg-twitch sticky-top testfont">
+      <div>
       <a className="navbar-brand" href="#">TKF</a>
       <ButtonDropdown isOpen={this.state.dropdownopen} toggle={this.toggle}>
       <DropdownToggle caret>
@@ -114,15 +115,15 @@ class App extends Component {
         );
       })}
       <hr></hr>
-      <NavItem><NavLink href="#socialmedia">Social Media</NavLink></NavItem>
+      <DropdownItem href="#socialmedia">Social Media</DropdownItem>
       </DropdownMenu>
       </ButtonDropdown>
-
+      </div>
       </nav>
       <div className="flex-container">
       <div className="jumbotron text-white bg-secondary" id="welcome">
         <div className="container">
-          <h1 className="display-4">Welcome to TKF</h1>
+          <h1 className="display-4 text-gold">Welcome to TKF</h1>
           <p className="lead">We are a <b className="text-purple">community of like-minded people</b> here to seek knowledge and share knowledge with others. Our primary goal is to share peer-reviewed information on a variety of topics in a casual, highly-interactive environment on Twitch. We seek to <b className="text-purple">serve the people by educating</b>, finding and supporting other educational content creators, creating a central hub for all things educational through live-streaming, and inspiring others to discover the value in learning.</p>
         </div>
       </div>
@@ -142,7 +143,7 @@ class App extends Component {
                         <div className="m-3 shadow text-white bg-secondary col-xl-3 col-lg-4 col-md-6 col-sm-12 rounded">
                           {/* make streamername a link to the twitch url from streamer */}
                           <div className="card-body">
-                          <a href={streamer.streamerurl} target="_blank" rel="noopener noreferrer"><div className="card-title text-purple"><b>{streamer.streamername}</b></div></a>
+                          <a href={streamer.streamerurl} target="_blank" rel="noopener noreferrer"><div className="card-title text-gold"><b>{streamer.streamername}</b></div></a>
                           <div className="card-text">{this.formatStreamerBio(streamer.streamerbio, streamer.truncated)}</div>
                           <button className="btn btn-outline-dark btn-sm" onClick={() => this.toggleTruncate(streamer.id, field.name)}>{this.state.readbtntext}</button>
                           <hr></hr>
@@ -151,7 +152,7 @@ class App extends Component {
                             return(
                              
                               <div className="text-truncate card-text">
-                              <a className="text-purple" href={links} target="_blank" rel="noopener noreferrer">{links}</a>
+                              <a href={links} target="_blank" rel="noopener noreferrer">{links}</a>
                             </div>
                             );
                             
@@ -175,6 +176,7 @@ class App extends Component {
           <InstagramEmbed
             url='https://www.instagram.com/p/BwGf5F9DrkB/?utm_source=ig_embed&amp;utm_medium=loading'
             maxWidth={400}
+            height={400}
             hideCaption={true}
             containerTagName='div'
             protocol=''
