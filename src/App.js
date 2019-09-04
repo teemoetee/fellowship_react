@@ -119,11 +119,12 @@ class App extends Component {
           <DropdownItem key={field.name} href={"#"+field.name}>{field.name}</DropdownItem>
         );
       })}
-      <hr></hr>
-      <DropdownItem href="#socialmedia">Social Media</DropdownItem>
+      {/* <hr></hr>
+      <DropdownItem href="#socialmedia">Social Media</DropdownItem> */}
       </DropdownMenu>
       </ButtonDropdown>
-      <Button outline onClick={this.discordInvite.bind(this)}>Join Our Discord!</Button>
+      <Button outline color="primary" onClick={this.discordInvite.bind(this)}>Join Our Discord!</Button>
+      
       </div>
       </nav>
       <div className="flex-container">
@@ -172,14 +173,14 @@ class App extends Component {
             </div>
           );
           })}
-          <div className= 'd-flex row' id="socialmedia">
-          <TwitterTimelineEmbed
+          {/* <div className= 'd-flex row' id="socialmedia"> */}
+          {/* <TwitterTimelineEmbed
             sourceType="profile"
             screenName="TheKnowledgeFe1"
             options={{height: 530, width: 400}} 
-          />
+          /> */}
           {/* change url to whatever tkf has as their first post */}
-          <InstagramEmbed
+          {/* <InstagramEmbed
             url='https://www.instagram.com/p/BwGf5F9DrkB/?utm_source=ig_embed&amp;utm_medium=loading'
             maxWidth={400}
             height={400}
@@ -191,9 +192,9 @@ class App extends Component {
             onSuccess={() => {}}
             onAfterRender={() => {}}
             onFailure={() => {}}
-          />
-          <iframe src="https://discordapp.com/widget?id=438876315764916224&theme=light" width="400" height="530" allowtransparency="true" frameBorder="0"></iframe>
-          </div>
+          /> */}
+          {/* <iframe src="https://discordapp.com/widget?id=438876315764916224&theme=light" width="400" height="530" allowtransparency="true" frameBorder="0"></iframe> */}
+          {/* </div> */}
       </div>
       
     );
