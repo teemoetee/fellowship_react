@@ -4,9 +4,9 @@ import './App.css';
 import './bootstrap-unedited/css/bootstrap.css';
 import './bootstrap-unedited/css/bootstrap.min.css';
 import './bootstrap-unedited/css/bootstrap-grid.css';
-import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavItem, NavLink, Button } from 'reactstrap';
-import { TwitterTimelineEmbed, TwitterShareButton, TwitterFollowButton, TwitterHashtagButton, TwitterMentionButton, TwitterTweetEmbed, TwitterMomentShare, TwitterDMButton, TwitterVideoEmbed, TwitterOnAirButton } from 'react-twitter-embed';
-import InstagramEmbed from 'react-instagram-embed';
+import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button } from 'reactstrap';
+// import { TwitterTimelineEmbed, TwitterShareButton, TwitterFollowButton, TwitterHashtagButton, TwitterMentionButton, TwitterTweetEmbed, TwitterMomentShare, TwitterDMButton, TwitterVideoEmbed, TwitterOnAirButton } from 'react-twitter-embed';
+// import InstagramEmbed from 'react-instagram-embed';
 import api from "./api";
 
 
@@ -87,7 +87,7 @@ class App extends Component {
   }
   formatStreamerBio(bio, truncated) {
     // toggle some bio shit with some split nonsense
-    let truncateLength = 150;
+    let truncateLength = 100;
     if(truncated && bio.length >= truncateLength) {
       return bio.slice(0,truncateLength) + "...";
     }
