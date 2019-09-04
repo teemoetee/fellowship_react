@@ -4,9 +4,11 @@ import './App.css';
 import './bootstrap-unedited/css/bootstrap.css';
 import './bootstrap-unedited/css/bootstrap.min.css';
 import './bootstrap-unedited/css/bootstrap-grid.css';
-import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavItem, NavLink } from 'reactstrap';
+import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavItem, NavLink, Button } from 'reactstrap';
 import { TwitterTimelineEmbed, TwitterShareButton, TwitterFollowButton, TwitterHashtagButton, TwitterMentionButton, TwitterTweetEmbed, TwitterMomentShare, TwitterDMButton, TwitterVideoEmbed, TwitterOnAirButton } from 'react-twitter-embed';
 import InstagramEmbed from 'react-instagram-embed';
+import api from "./api";
+
 
 
 class App extends Component {
@@ -28,6 +30,7 @@ class App extends Component {
   componentDidMount() {
     fetch('http://localhost:3003/streamers')
     .then((data) => {
+      
       return data.json();
     })
     .then(data => {
@@ -53,15 +56,15 @@ class App extends Component {
         return {name: profiles};
       })
       this.setState({fields});
-      console.table(fields);
+      //console.table(fields);
       this.setState({streamers: data});
       this.setState({profile});
-      console.table(profile);
+      //console.log(profile);
+      //console.log(this.state.streamers);
     })
-    
   }
   toggleTruncate(id, fieldName){
-    console.log(id);
+    //console.log(id);
     let newFields = [...this.state.fields];
     let newField = newFields.find(field => field.name === fieldName);
     let newFieldIndex = newFields.findIndex(field => field.name === fieldName);
@@ -96,7 +99,9 @@ class App extends Component {
       dropdownopen: !this.state.dropdownopen
     });
   }
-
+  discordInvite() {
+    window.location.assign('https://discord.gg/HSYKvSc');
+  }
   render() {
     return (
       <div className="App">
@@ -118,6 +123,7 @@ class App extends Component {
       <DropdownItem href="#socialmedia">Social Media</DropdownItem>
       </DropdownMenu>
       </ButtonDropdown>
+      <Button outline onClick={this.discordInvite.bind(this)}>Join Our Discord!</Button>
       </div>
       </nav>
       <div className="flex-container">
