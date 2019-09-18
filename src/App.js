@@ -5,8 +5,6 @@ import './bootstrap-unedited/css/bootstrap.css';
 import './bootstrap-unedited/css/bootstrap.min.css';
 import './bootstrap-unedited/css/bootstrap-grid.css';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button } from 'reactstrap';
-// import { TwitterTimelineEmbed, TwitterShareButton, TwitterFollowButton, TwitterHashtagButton, TwitterMentionButton, TwitterTweetEmbed, TwitterMomentShare, TwitterDMButton, TwitterVideoEmbed, TwitterOnAirButton } from 'react-twitter-embed';
-// import InstagramEmbed from 'react-instagram-embed';
 import api from "./api";
 
 
@@ -59,10 +57,28 @@ class App extends Component {
       //console.table(fields);
       this.setState({streamers: data});
       this.setState({profile});
-      //console.log(profile);
-      //console.log(this.state.streamers);
+      
+      const imgfetch = "https://api.twitch.tv/helix/users?"
+      const imgfetchnamevar = this.state.streamers.map(sname => "login=" + sname.streamername).join("&");
+      //console.log(imgfetch + imgfetchnamevar);
+
+      const fetchdata = async () => {
+        const result = await api.get(imgfetch + imgfetchnamevar);
+        //console.log(result.data.data);
+          result.data.data.forEach(function(element) {
+            //console.log(element["login"] + ' ' + element["profile_image_url"]);
+            fetch(`http://localhost:3003/streamers/add?name=${element["login"]}&image=${element["profile_image_url"]}`)
+            .catch(err => console.error(err));
+          })
+         
+      }
+      fetchdata();
     })
+    
   }
+  
+
+
   toggleTruncate(id, fieldName){
     //console.log(id);
     let newFields = [...this.state.fields];
@@ -102,6 +118,8 @@ class App extends Component {
   discordInvite() {
     window.location.assign('https://discord.gg/HSYKvSc');
   }
+
+  
   render() {
     return (
       <div className="App">
@@ -149,6 +167,7 @@ class App extends Component {
                       return(
                         <div className="m-3 shadow text-white bg-secondary col-xl-3 col-lg-4 col-md-6 col-sm-12 rounded">
                           {/* make streamername a link to the twitch url from streamer */}
+                          <img class="card-img" src={streamer.profileimg} alt="Card image cap"></img>
                           <div className="card-body">
                           <a href={streamer.streamerurl} target="_blank" rel="noopener noreferrer"><div className="card-title text-gold"><b>{streamer.streamername}</b></div></a>
                           <div className="card-text">{this.formatStreamerBio(streamer.streamerbio, streamer.truncated)}</div>
@@ -173,28 +192,6 @@ class App extends Component {
             </div>
           );
           })}
-          {/* <div className= 'd-flex row' id="socialmedia"> */}
-          {/* <TwitterTimelineEmbed
-            sourceType="profile"
-            screenName="TheKnowledgeFe1"
-            options={{height: 530, width: 400}} 
-          /> */}
-          {/* change url to whatever tkf has as their first post */}
-          {/* <InstagramEmbed
-            url='https://www.instagram.com/p/BwGf5F9DrkB/?utm_source=ig_embed&amp;utm_medium=loading'
-            maxWidth={400}
-            height={400}
-            hideCaption={true}
-            containerTagName='div'
-            protocol=''
-            injectScript
-            onLoading={() => {}}
-            onSuccess={() => {}}
-            onAfterRender={() => {}}
-            onFailure={() => {}}
-          /> */}
-          {/* <iframe src="https://discordapp.com/widget?id=438876315764916224&theme=light" width="400" height="530" allowtransparency="true" frameBorder="0"></iframe> */}
-          {/* </div> */}
       </div>
       
     );
