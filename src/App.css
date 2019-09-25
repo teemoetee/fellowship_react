@@ -30,6 +30,12 @@
   --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
+@media (max-width: 768px) {
+  .fadeshow {
+    display: none;
+    visibility: hidden;
+  }
+}
 
 .testfont{
   font-family: 'Orbitron', sans-serif;
@@ -76,6 +82,7 @@ html body {
 }
 .text-gold {
   color: var(--warning);
+  
 }
 
 
@@ -88,5 +95,17 @@ html body {
   }
 }
 .text-truncate {
-  -webkit-text-fill-color: var(--purple);
+  -webkit-text-fill-color: #6610f2;
+}
+.imagesize {
+  max-width: 8em;
+  max-height: 8em;
+  margin: auto;
+}
+.footer {
+  background-color: #e9ecef;
+  height: 4em;
+}
+.centerfooter {
+  margin:auto;
 }

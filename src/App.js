@@ -141,7 +141,7 @@ class App extends Component {
       <DropdownItem href="#socialmedia">Social Media</DropdownItem> */}
       </DropdownMenu>
       </ButtonDropdown>
-      <Button outline color="primary" onClick={this.discordInvite.bind(this)}>Join Our Discord!</Button>
+      <Button outline style={{color: '#ffc107', border: '1px solid #ffc107'}} onClick={this.discordInvite.bind(this)}>Join Our Discord!</Button>
       
       </div>
       </nav>
@@ -156,7 +156,10 @@ class App extends Component {
 
       {/* putting streamer and bio in appropriate field and displaying crudely maybe change to grid display instead of card */}
       {this.state.fields.map(field => {
+        
+
         return (
+          
           <div className="row">
             <div className="container-fluid">
                   <h5 className="display-4 text-purple" id={field.name} align="center">{field.name}</h5>
@@ -165,13 +168,14 @@ class App extends Component {
                   
                     <div className="d-flex row">{field.streamers.map(streamer => {
                       return(
-                        <div className="m-3 shadow text-white bg-secondary col-xl-3 col-lg-4 col-md-6 col-sm-12 rounded">
+                        
+                      <div className="card m-3 shadow text-white bg-secondary col-xl-2 col-lg-2 col-md-3 col-sm-12 rounded">
                           {/* make streamername a link to the twitch url from streamer */}
-                          <img class="card-img" src={streamer.profileimg} alt="Card image cap"></img>
+                          <div className='imagesize'><img class="card-img w-80 mx-auto" src={streamer.profileimg} alt="Card image cap"></img></div>
                           <div className="card-body">
                           <a href={streamer.streamerurl} target="_blank" rel="noopener noreferrer"><div className="card-title text-gold"><b>{streamer.streamername}</b></div></a>
-                          <div className="card-text">{this.formatStreamerBio(streamer.streamerbio, streamer.truncated)}</div>
-                          <button className="btn btn-outline-dark btn-sm" onClick={() => this.toggleTruncate(streamer.id, field.name)}>{this.state.readbtntext}</button>
+                          <div className="card-text fadeshow">{this.formatStreamerBio(streamer.streamerbio, streamer.truncated)}</div>
+                          <button className="btn btn-outline-dark btn-sm fadeshow" onClick={() => this.toggleTruncate(streamer.id, field.name)}>{this.state.readbtntext}</button>
                           <hr></hr>
                           
                           <div>{streamer.streamerlinks.map(links => {
@@ -188,11 +192,13 @@ class App extends Component {
                         );
                     })}
                     </div>
+                    
                     </div>
             </div>
           );
           })}
-      </div>
+          <footer className="footer text-white bg-secondary"><h4>For all business inquiries please email <a style={{color: '#ffc107'}}href = "mailto: knowledgeFellowship@gmail.com">knowledgefellowship@gmail.com</a>. For faster correspondance you can join the discord and directly message one of the founders: <a href="#" onClick={this.discordInvite.bind(this)} style={{color: '#ffc107'}}>Rockitsage, DrWD40, UncleB</a></h4></footer>
+          </div>
       
     );
     

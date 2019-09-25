@@ -161,14 +161,14 @@ sup {
 }
 
 a {
-  color: #007bff;
+  color: #6610f2;
   text-decoration: none;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
 }
 
 a:hover {
-  color: #0056b3;
+  color: #dde9f7;
   text-decoration: underline;
 }
 
@@ -8809,7 +8809,7 @@ button.bg-dark:focus {
 }
 
 .text-purple {
-  color: #6441A5;
+  color: #6610F2;
 }
 
 .text-primary {
