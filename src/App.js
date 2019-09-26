@@ -174,8 +174,8 @@ class App extends Component {
                           <div className='imagesize'><img class="card-img w-80 mx-auto" src={streamer.profileimg} alt="Card image cap"></img></div>
                           <div className="card-body">
                           <a href={streamer.streamerurl} target="_blank" rel="noopener noreferrer"><div className="card-title text-gold"><b>{streamer.streamername}</b></div></a>
-                          <div className="card-text fadeshow">{this.formatStreamerBio(streamer.streamerbio, streamer.truncated)}</div>
-                          <button className="btn btn-outline-dark btn-sm fadeshow" onClick={() => this.toggleTruncate(streamer.id, field.name)}>{this.state.readbtntext}</button>
+                          <div className="card-text">{this.formatStreamerBio(streamer.streamerbio, streamer.truncated)}</div>
+                          <button className="btn btn-outline-dark btn-sm" onClick={() => this.toggleTruncate(streamer.id, field.name)}>{this.state.readbtntext}</button>
                           <hr></hr>
                           
                           <div>{streamer.streamerlinks.map(links => {
